@@ -1,0 +1,144 @@
+{
+  "info": {
+    "_postman_id": "847d16c0-75b7-4e48-a8be-33345eec193b",
+    "name": "Toolshop API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56687571",
+    "_collection_link": "https://go.postman.co/collection/56687571-847d16c0-75b7-4e48-a8be-33345eec193b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get Product",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\npm.test(\"Yanıt JSON formatında olmalı\", function () {\r\n    pm.response.to.be.json;\r\n    });\r\n    "
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.practicesoftwaretesting.com/products",
+          "protocol": "https",
+          "host": [
+            "api",
+            "practicesoftwaretesting",
+            "com"
+          ],
+          "path": [
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Arama isteği 200 OK dönmeli\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Arama yanıtı geçerli JSON olmalı\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Arama sonucu ürün listesi içermeli\", function () {\r\n    const response = pm.response.json();\r\n\r\n    pm.expect(response.data).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Bulunan ürünler pliers aramasıyla eşleşmeli\", function () {\r\n    const response = pm.response.json();\r\n\r\n    response.data.forEach(function (product) {\r\n        const searchableText =\r\n            (product.name + \" \" + product.description).toLowerCase();\r\n\r\n        pm.expect(searchableText).to.include(\"pliers\");\r\n    });\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.practicesoftwaretesting.com/products/search?q=pliers",
+          "protocol": "https",
+          "host": [
+            "api",
+            "practicesoftwaretesting",
+            "com"
+          ],
+          "path": [
+            "products",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "pliers"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Product Details",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Ürün detay isteği 200 OK dönmeli\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Ürün detay yanıtı geçerli JSON olmalı\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Yanıttaki ürün kimliği istenen ürünle eşleşmeli\", function () {\r\n    const product = pm.response.json();\r\n\r\n    pm.expect(product.id).to.eql(\"01M6VJPBMABB2CJXWPBT0MHTEJ\");\r\n});\r\n\r\npm.test(\"Ürün adı boş olmamalı\", function () {\r\n    const product = pm.response.json();\r\n\r\n    pm.expect(product.name).to.be.a(\"string\").and.not.empty;\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.practicesoftwaretesting.com/products/01M6VJPBMABB2CJXWPBT0MHTEJ",
+          "protocol": "https",
+          "host": [
+            "api",
+            "practicesoftwaretesting",
+            "com"
+          ],
+          "path": [
+            "products",
+            "01M6VJPBMABB2CJXWPBT0MHTEJ"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Invalid Product",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Geçersiz ürün için 404 dönmeli\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Yanıt JSON formatında olmalı\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Yanıt bir hata mesajı içermeli\", function () {\r\n    const data = pm.response.json();\r\n\r\n    pm.expect(\r\n        data.message || data.error\r\n    ).to.be.a(\"string\").and.not.empty;\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.practicesoftwaretesting.com/products/invalid-product-12345",
+          "protocol": "https",
+          "host": [
+            "api",
+            "practicesoftwaretesting",
+            "com"
+          ],
+          "path": [
+            "products",
+            "invalid-product-12345"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
