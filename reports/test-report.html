@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toolshop QA | Test Report</title>
+<style>
+:root{--ink:#172033;--muted:#65738b;--line:#e4eaf2;--surface:#fff;--bg:#f3f6fb;--blue:#4169e1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",Arial,sans-serif}
+.shell{max-width:1120px;margin:0 auto;padding:36px 22px 56px}
+.hero{padding:30px 32px;border-radius:22px;background:linear-gradient(120deg,#172554,#1d4ed8 62%,#38bdf8);color:white;box-shadow:0 18px 40px #173a742b}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.76}h1{margin:8px 0;font-size:clamp(28px,5vw,42px);line-height:1.12}
+.hero p{margin:0;color:#dbeafe}.state{display:inline-flex;margin-top:18px;padding:7px 12px;border-radius:999px;background:#ffffff20;font-weight:700;font-size:12px;letter-spacing:.06em}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
+.metric,.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px #17203308}
+.metric{padding:17px 19px;display:flex;align-items:center;justify-content:space-between;color:var(--muted)}
+.metric strong{font-size:30px;color:var(--ink)}.metric.passed strong{color:#16a34a}.metric.failed strong{color:#dc2626}.metric.skipped strong{color:#d97706}.metric.error strong{color:#9333ea}
+.overview{display:grid;grid-template-columns:300px 1fr;gap:18px;margin-bottom:20px}
+.panel{padding:22px}h2{margin:0 0 18px;font-size:18px}.chart-wrap{display:grid;place-items:center;min-height:230px}
+.donut{width:190px;height:190px;border-radius:50%;background:conic-gradient(#22c55e 0.00% 100.00%);display:grid;place-items:center;position:relative}
+.donut:before{content:"";position:absolute;inset:23px;border-radius:50%;background:white}
+.donut-center{z-index:1;text-align:center}.donut-center strong{display:block;font-size:38px;line-height:1.1}.donut-center span{color:var(--muted);font-size:12px}
+.legend{display:grid;gap:13px;align-content:center}.legend-item{display:grid;grid-template-columns:14px 1fr auto;gap:10px;align-items:center;color:var(--muted)}
+.legend-item i{width:11px;height:11px;border-radius:4px;background:#dbe4f0}.legend-item i.passed{background:#22c55e}.legend-item i.failed{background:#ef4444}.legend-item i.skipped{background:#f59e0b}.legend-item i.error{background:#a855f7}
+.legend-item strong{color:var(--ink)}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.meta div{padding:13px 15px;background:#f8faff;border-radius:11px;min-width:0}.meta span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.meta strong{display:block;margin-top:3px;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse}th,td{padding:13px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}code{overflow-wrap:anywhere;color:#334155}
+.badge{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;letter-spacing:.04em}
+.badge.passed{background:#dcfce7;color:#15803d}.badge.failed{background:#fee2e2;color:#b91c1c}.badge.skipped{background:#fef3c7;color:#b45309}.badge.error{background:#f3e8ff;color:#7e22ce}
+details summary{cursor:pointer;color:var(--blue);font-weight:600}pre{max-width:520px;white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;background:#f8fafc;border-radius:9px;color:#475569;font-size:12px}
+.muted{color:var(--muted);font-size:13px}footer{padding:22px 4px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.overview{grid-template-columns:1fr}.meta{grid-template-columns:1fr}.panel{overflow-x:auto}}
+</style>
+</head>
+<body><main class="shell">
+<header class="hero"><div class="eyebrow">Quality assurance · browser automation</div>
+<h1>Toolshop Test Report</h1><p>Clear results for the product, stock, cart and checkout journey.</p>
+<span class="state">NO TEST FAILURES</span></header>
+<section class="grid" aria-label="Test result counts"><article class="metric passed"><span>Passed</span><strong>3</strong></article><article class="metric failed"><span>Failed</span><strong>0</strong></article><article class="metric skipped"><span>Skipped</span><strong>0</strong></article><article class="metric error"><span>Error</span><strong>0</strong></article></section>
+<section class="overview">
+<article class="panel"><h2>Run summary</h2><div class="chart-wrap"><div class="donut" role="img" aria-label="3 total tests">
+<div class="donut-center"><strong>3</strong><span>total tests</span></div></div></div></article>
+<article class="panel"><h2>Outcome distribution</h2><div class="legend"><div class="legend-item"><i class="passed"></i><span>Passed</span><strong>3</strong></div><div class="legend-item"><i class="failed"></i><span>Failed</span><strong>0</strong></div><div class="legend-item"><i class="skipped"></i><span>Skipped</span><strong>0</strong></div><div class="legend-item"><i class="error"></i><span>Error</span><strong>0</strong></div></div></article>
+</section>
+<section class="panel" style="margin-bottom:20px"><h2>Execution details</h2><div class="meta">
+<div><span>Target</span><strong>https://practicesoftwaretesting.com</strong></div>
+<div><span>Mode</span><strong>Demo checkout</strong></div>
+<div><span>Generated</span><strong>2026-11-08 22:16:09 Türkiye Standart Saati</strong></div>
+<div><span>Duration</span><strong>32.50s</strong></div></div></section>
+<section class="panel"><h2>Test cases</h2><table><thead><tr><th>Test</th><th>Result</th><th>Time</th><th>Details</th></tr></thead>
+<tbody><tr><td><code>TC-CART-UIAPI-001</code><br><span class="muted">tests/test_cart_ui_api.py::test_TC_CART_UIAPI_001_ui_cart_matches_api_cart</span></td><td><span class="badge passed">PASSED</span></td><td>10.20s</td><td><details><summary>Steps and details</summary><ol><li><strong>GET products and select an available item</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> HTTP 200 product list with at least one in-stock product<br><strong>Actual:</strong> https://api.practicesoftwaretesting.com/products; product list received=True</li><li><strong>Confirm selected product availability</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> Product 01M6Y8H03HH2WVKPQ5DXS66R77 exists and API in_stock=true<br><strong>Actual:</strong> API in_stock=True</li><li><strong>Check UI availability before adding</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> Product is in stock and add-to-cart is enabled<br><strong>Actual:</strong> UI in_stock=True</li><li><strong>Add product through UI</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> Browser cart contains product 01M6Y8H03HH2WVKPQ5DXS66R77 with quantity 1<br><strong>Actual:</strong> Browser cart session created; cart_quantity=1</li><li><strong>GET browser cart through API</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> GET /carts/{cartId} using the browser cart id returns an item list<br><strong>Actual:</strong> Browser cart id matches API response; cart_items type=list</li><li><strong>Compare browser and API cart contents</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> Product 01M6Y8H03HH2WVKPQ5DXS66R77 appears in API cart with quantity 1<br><strong>Actual:</strong> API product_id=01M6Y8H03HH2WVKPQ5DXS66R77; API quantity=1</li></ol></details></td></tr><tr><td><code>tests/test_open.py::test_product_cart_and_checkout_flow</code></td><td><span class="badge passed">PASSED</span></td><td>15.73s</td><td><span class="muted">No issues reported</span></td></tr><tr><td><code>TC-UIAPI-001</code><br><span class="muted">tests/test_ui_api_product.py::test_TC_UIAPI_001_product_details_match_between_api_and_ui</span></td><td><span class="badge passed">PASSED</span></td><td>5.53s</td><td><details><summary>Steps and details</summary><ol><li><strong>GET product list</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> HTTP 200 JSON object containing a product list<br><strong>Actual:</strong> https://api.practicesoftwaretesting.com/products; data type=list</li><li><strong>Select the POM product</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> API product image pliers01.avif<br><strong>Actual:</strong> Product found: 01M6Y8H03HH2WVKPQ5DXS66R77</li><li><strong>GET product details</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> HTTP 200 with matching id, name, price, and in_stock fields<br><strong>Actual:</strong> {&quot;id&quot;: &quot;01M6Y8H03HH2WVKPQ5DXS66R77&quot;, &quot;in_stock&quot;: true, &quot;name&quot;: &quot;Combination Pliers&quot;, &quot;price&quot;: 14.15, &quot;product_image&quot;: &quot;pliers01.avif&quot;}</li><li><strong>Open matching product in the UI</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> /product/01M6Y8H03HH2WVKPQ5DXS66R77 showing Combination Pliers<br><strong>Actual:</strong> https://practicesoftwaretesting.com/product/01M6Y8H03HH2WVKPQ5DXS66R77; UI name=Combination Pliers</li><li><strong>Compare product name</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> Combination Pliers<br><strong>Actual:</strong> Combination Pliers</li><li><strong>Compare product price</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> 14.15<br><strong>Actual:</strong> 14.15</li><li><strong>Compare stock status</strong> <span class="badge passed">PASS</span><br><strong>Expected:</strong> API in_stock=True<br><strong>Actual:</strong> UI status=in stock; API in_stock=True</li></ol></details></td></tr></tbody></table></section>
+<footer>Generated locally by the Toolshop QA pytest reporting plugin · No external assets or tracking.</footer>
+</main></body></html>

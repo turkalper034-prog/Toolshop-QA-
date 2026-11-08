@@ -26,7 +26,7 @@ Tarayıcı görünür modda açılır ve uçtan uca senaryoyu yürütür:
 python -m pytest -v -s
 ```
 
-Her çalıştırmada `reports\test-report.html` altında paylaşılabilir, tek dosyalık bir HTML raporu ve `reports\test-results.xml` altında JUnit XML raporu üretilir. HTML raporunda pass/fail/skip grafiği, test süreleri, hedef URL, çalışma modu ve hata/skip detayları bulunur; dışarıdan görsel veya servis yüklemez. Rapor dosyaları yerel çıktıdır ve Git tarafından izlenmez. HTML raporunu tarayıcıda aç:
+Her çalıştırmada `reports\test-report.html` altında paylaşılabilir, tek dosyalık bir HTML raporu ve `reports\test-results.xml` altında JUnit XML raporu üretilir. HTML raporunda pass/fail/skip grafiği, test süreleri, hedef URL, çalışma modu ve hata/skip detayları bulunur; dışarıdan görsel veya servis yüklemez. GitHub’da şu anki raporları [HTML raporu](reports/test-report.html) ve [JUnit XML raporu](reports/test-results.xml) bağlantılarından görebilirsin. Bu raporlar son test çalıştırmasının çıktıları olarak repoda paylaşılır; yeni çalıştırmadan sonra güncel raporu da göndermek için değişen rapor dosyalarını commit edip push et. Raporlarda oturum/sepet kimliği yer almaz. HTML raporunu tarayıcıda aç:
 
 ```powershell
 Start-Process .\reports\test-report.html
@@ -169,7 +169,7 @@ Checkout'ta yalnızca demo için üretilmiş bilgiler kullanılır: `qa.checkout
 
 ## Paylaşım ve kapsam
 
-HTML ve JUnit raporları `reports\test-report.html` ve `reports\test-results.xml` konumlarında yerel üretilir ve `.gitignore` ile repoya otomatik eklenmeleri engellenir. GitHub issue/PR eki ya da LinkedIn paylaşımı öncesinde hedef adresi, hata ayrıntılarını ve raporda gösterilen diğer bilgileri gözden geçirip gerekirse anonimleştir. Ürün stokta olmadığında raporda `SKIPPED` görünmesi beklenen bir durumdur; `FAILED` ile karıştırılmamalıdır.
+HTML ve JUnit raporları `reports\test-report.html` ve `reports\test-results.xml` konumlarında üretilir ve repoda paylaşılır. GitHub issue/PR eki ya da LinkedIn paylaşımı öncesinde hedef adresi, hata ayrıntılarını ve raporda gösterilen diğer bilgileri gözden geçirip gerekirse anonimleştir. Ürün stokta olmadığında raporda `SKIPPED` görünmesi beklenen bir durumdur; `FAILED` ile karıştırılmamalıdır.
 
 Postman/Newman koleksiyonu mevcut salt-okunur ürün listeleme, arama, ürün detayı ve geçersiz ürün yanıtlarını ayrı olarak kapsar. Python UI + API testleri ise aynı pytest çalıştırmasında ve aynı HTML/JUnit raporları altında yürütülür.
 

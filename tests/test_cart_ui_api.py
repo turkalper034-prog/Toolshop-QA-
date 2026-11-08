@@ -163,7 +163,7 @@ def test_TC_CART_UIAPI_001_ui_cart_matches_api_cart(driver, report_step):
     report_step(
         "Add product through UI",
         f"Browser cart contains product {product_id} with quantity 1",
-        f"sessionStorage cart_id={cart_id}; cart_quantity={ui_quantity}",
+        f"Browser cart session created; cart_quantity={ui_quantity}",
         "PASS" if ui_quantity == "1" else "FAIL",
     )
     assert ui_quantity == "1", (
@@ -179,9 +179,9 @@ def test_TC_CART_UIAPI_001_ui_cart_matches_api_cart(driver, report_step):
     )
     report_step(
         "GET browser cart through API",
-        f"GET {cart_url} returns the same cart id and an item list",
+        "GET /carts/{cartId} using the browser cart id returns an item list",
         (
-            f"cart id={api_cart.get('id')}; "
+            "Browser cart id matches API response; "
             f"cart_items type={type(api_cart.get('cart_items')).__name__}"
             if isinstance(api_cart, dict)
             else f"Unexpected response type: {type(api_cart).__name__}"
