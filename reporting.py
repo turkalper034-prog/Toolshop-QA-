@@ -3,6 +3,8 @@ from html import escape
 from pathlib import Path
 from time import monotonic
 
+import pytest
+
 from config.config import BASE_URL, IS_DEMO_SITE, LIVE_MODE
 
 
@@ -27,10 +29,33 @@ def pytest_sessionstart(session):
     _started_clock = monotonic()
 
 
+@pytest.fixture
+def report_step(request):
+    result = _test_results.setdefault(
+        request.node.nodeid,
+        {"phases": {}, "details": "", "duration": 0.0, "steps": []},
+    )
+    marker = request.node.get_closest_marker("case_id")
+    if marker and marker.args:
+        result["case_id"] = str(marker.args[0])
+
+    def record_step(name, expected, actual, status="PASS"):
+        result["steps"].append(
+            {
+                "name": str(name),
+                "expected": str(expected),
+                "actual": str(actual),
+                "status": str(status).upper(),
+            }
+        )
+
+    return record_step
+
+
 def pytest_runtest_logreport(report):
     result = _test_results.setdefault(
         report.nodeid,
-        {"phases": {}, "details": "", "duration": 0.0},
+        {"phases": {}, "details": "", "duration": 0.0, "steps": []},
     )
     result["phases"][report.when] = report.outcome
     result["duration"] += report.duration
@@ -59,9 +84,11 @@ def pytest_sessionfinish(session, exitstatus):
         tests.append(
             {
                 "name": nodeid,
+                "case_id": result.get("case_id", ""),
                 "status": status,
                 "duration": result["duration"],
                 "details": result["details"],
+                "steps": result["steps"],
             }
         )
 
@@ -119,13 +146,33 @@ def _render_report(tests, counts, elapsed, generated_at, exitstatus=0):
     for test in tests:
         status = test["status"]
         details = escape(test["details"])
+        step_rows = "".join(
+            f"<li><strong>{escape(step['name'])}</strong> "
+            f'<span class="badge '
+            f'{"passed" if step["status"] == "PASS" else "failed" if step["status"] == "FAIL" else "skipped"}">'
+            f"{escape(step['status'])}</span>"
+            f"<br><strong>Expected:</strong> {escape(step['expected'])}"
+            f"<br><strong>Actual:</strong> {escape(step['actual'])}</li>"
+            for step in test["steps"]
+        )
+        detail_content = ""
+        if step_rows:
+            detail_content += f"<ol>{step_rows}</ol>"
+        if details:
+            detail_content += f"<pre>{details}</pre>"
         detail_cell = (
-            f"<details><summary>View details</summary><pre>{details}</pre></details>"
-            if details
+            f"<details><summary>Steps and details</summary>{detail_content}</details>"
+            if detail_content
             else '<span class="muted">No issues reported</span>'
         )
+        test_name = (
+            f"<code>{escape(test['case_id'])}</code><br>"
+            f'<span class="muted">{escape(test["name"])}</span>'
+            if test["case_id"]
+            else f"<code>{escape(test['name'])}</code>"
+        )
         rows.append(
-            f"<tr><td><code>{escape(test['name'])}</code></td>"
+            f"<tr><td>{test_name}</td>"
             f'<td><span class="badge {status}">{status.upper()}</span></td>'
             f"<td>{test['duration']:.2f}s</td><td>{detail_cell}</td></tr>"
         )

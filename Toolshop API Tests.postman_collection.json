@@ -15,7 +15,22 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\npm.test(\"Yanıt JSON formatında olmalı\", function () {\r\n    pm.response.to.be.json;\r\n    });\r\n    "
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Yanıt JSON formatında olmalı\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const response = pm.response.json();",
+              "const product = response.data.find(function (item) {",
+              "    return item.product_image && item.product_image.file_name === \"pliers01.avif\";",
+              "});",
+              "pm.test(\"POM ürünü API listesinde bulunmalı\", function () {",
+              "    pm.expect(product, \"POM ürünü API listesinde bulunamadı\").to.exist;",
+              "});",
+              "if (product) {",
+              "    pm.collectionVariables.set(\"product_id\", product.id);",
+              "}"
             ]
           }
         }
@@ -84,7 +99,20 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Ürün detay isteği 200 OK dönmeli\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Ürün detay yanıtı geçerli JSON olmalı\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Yanıttaki ürün kimliği istenen ürünle eşleşmeli\", function () {\r\n    const product = pm.response.json();\r\n\r\n    pm.expect(product.id).to.eql(\"01M6VJPBMABB2CJXWPBT0MHTEJ\");\r\n});\r\n\r\npm.test(\"Ürün adı boş olmamalı\", function () {\r\n    const product = pm.response.json();\r\n\r\n    pm.expect(product.name).to.be.a(\"string\").and.not.empty;\r\n});\r\n"
+              "pm.test(\"Ürün detay isteği 200 OK dönmeli\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Ürün detay yanıtı geçerli JSON olmalı\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "pm.test(\"Yanıttaki ürün kimliği istenen ürünle eşleşmeli\", function () {",
+              "    const product = pm.response.json();",
+              "    pm.expect(product.id).to.eql(pm.collectionVariables.get(\"product_id\"));",
+              "});",
+              "pm.test(\"Ürün adı boş olmamalı\", function () {",
+              "    const product = pm.response.json();",
+              "    pm.expect(product.name).to.be.a(\"string\").and.not.empty;",
+              "});"
             ]
           }
         }
@@ -93,7 +121,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://api.practicesoftwaretesting.com/products/01M6VJPBMABB2CJXWPBT0MHTEJ",
+          "raw": "https://api.practicesoftwaretesting.com/products/{{product_id}}",
           "protocol": "https",
           "host": [
             "api",
@@ -102,7 +130,7 @@
           ],
           "path": [
             "products",
-            "01M6VJPBMABB2CJXWPBT0MHTEJ"
+            "{{product_id}}"
           ]
         }
       },

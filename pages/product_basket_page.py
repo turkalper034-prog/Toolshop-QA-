@@ -10,6 +10,8 @@ class BasketPage(BasePage):
     add_basket_page = (By.ID, "btn-increase-quantity")
     add_to_cart_page = (By.ID, "btn-add-to-cart")
     specs_title = (By.XPATH, "//h3[@data-test='specs-title']")
+    product_name = (By.CSS_SELECTOR, "[data-test='product-name']")
+    unit_price = (By.CSS_SELECTOR, "[data-test='unit-price']")
     stock_notifications = (By.CSS_SELECTOR, "[role='alert']")
 
     def __init__(self, driver):
@@ -70,3 +72,40 @@ class BasketPage(BasePage):
 
     def get_specs_title(self):
         return self.find(self.specs_title).is_displayed()
+
+    def get_product_name(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.product_name)
+        ).text.strip()
+
+    def get_unit_price(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.unit_price)
+        ).text.strip()
+
+    def get_stock_status(self):
+        page_text = self.driver.find_element(By.TAG_NAME, "body").text.casefold()
+        stock_phrases = (
+            "stokta yok",
+            "stok yok",
+            "tükendi",
+            "out of stock",
+            "not in stock",
+        )
+        if any(phrase in page_text for phrase in stock_phrases):
+            return False
+
+        add_to_cart = self.wait.until(
+            EC.presence_of_element_located(self.add_to_cart_page)
+        )
+        return True if add_to_cart.is_enabled() else None
+
+    def get_cart_id(self):
+        return self.driver.execute_script(
+            "return window.sessionStorage.getItem('cart_id');"
+        )
+
+    def get_cart_quantity_from_session(self):
+        return self.driver.execute_script(
+            "return window.sessionStorage.getItem('cart_quantity');"
+        )
